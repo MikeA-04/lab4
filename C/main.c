@@ -13,7 +13,7 @@ typedef struct node {
 
 // parse line into array of strings 
 char** parse_line(char* line) {
-    // TODO: the current code only works when the input 
+    // ToDo-4: the current code only works when the input 
     // is separated with spaces. Modify parse_line so it 
     // also supports inputs that have no spaces.  
     // for instance, parse_line should return {"2", "*", "3", "/", "5", NULL}
@@ -30,7 +30,7 @@ char** parse_line(char* line) {
 }
 
 double operator(double a, double b, char* op) {
-    // TODO: complete this section for - / * 
+    // ToDo-1: complete this section for - / * 
     if (strcmp(op, "+") == 0) return a+b;
     
     return 0;
@@ -107,11 +107,11 @@ int main(int argc, char* argv[]) {
         return 1;
     }
     char* filename = argv[1];
-    // TODO: create a file if it doesn't exist and set its permissions to 
+    // ToDo-2: create a file if it doesn't exist and set its permissions to 
     // allow everybody to read and execute, but only the owner can write to it (i.e., rwxr-xr-x) 
     // int fd = open(filename, , );
 
-    // TODO: uncomment me for error handling
+    // ToDo-2: uncomment me for error handling
     // if (fd == -1) {
     // 	perror("File error");
     // 	exit(0);
@@ -123,12 +123,12 @@ int main(int argc, char* argv[]) {
         Node* root = build_tree(parsed);
         double answer = calculate(root);
         printf("%f\n", answer);
-        // TODO: create a string from the answer and write it into the file 
+        // ToDo-3: create a string from the answer (note that answer is not a string) and write it into the file 
         destroy_tree(root);
         free(parsed);
         printf("$ ");
     }
-    // TODO: uncomment me (don't forget to close the file)
+    // ToDo-2: uncomment me (don't forget to close the file)
     // close(fd);
     return 0;
 }
