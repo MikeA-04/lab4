@@ -116,10 +116,14 @@ int main(int argc, char* argv[]) {
     char* filename = argv[1];
     // ToDo-2: create a file if it doesn't exist and set its permissions to 
     // allow everybody to read and execute, but only the owner can write to it (i.e., rwxr-xr-x) 
-    if (argv[2] == "rwxr-xr-x") 
-        int fd = open(filename, O_CREAT, O_RDWR);
-    else
-        int fd = open(filename, O_CREAT, O_RDONLY);
+
+    // a bcd efg ijk
+    // For a: 0 = file, 1 directory
+    // bcd = user (owner)   111
+    // efg = group          101
+    // ijk = other          101
+    // read, write, execute (1 for yes, 0 for no)
+    int fd = open(filename, O_CREAT | O_RDWR, 0755);
 
 
     // ToDo-2: uncomment me for error handling
@@ -135,6 +139,10 @@ int main(int argc, char* argv[]) {
         double answer = calculate(root);
         printf("%f\n", answer);
         // ToDo-3: create a string from the answer (note that answer is not a string) and write it into the file 
+        snprintf(output, 256, "%f", answer);
+        // Write it into the file
+        write(fd, output, strlen(output));
+
         destroy_tree(root);
         free(parsed);
         printf("$ ");
