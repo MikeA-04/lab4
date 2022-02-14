@@ -31,9 +31,16 @@ char** parse_line(char* line) {
 
 double operator(double a, double b, char* op) {
     // ToDo-1: complete this section for - / * 
-    if (strcmp(op, "+") == 0) return a+b;
-    
-    return 0;
+    if (strcmp(op, "+") == 0) 
+        return a+b;
+    else if (strcmp(op, "-") == 0) 
+        return a-b;
+    else if (strcmp(op, "/") == 0 && b != 0) 
+        return a/b;
+    else if (strcmp(op, "*") == 0) 
+        return a*b;
+    else
+        return 0;
 }
 
 double calculate(Node* root) {
@@ -109,13 +116,17 @@ int main(int argc, char* argv[]) {
     char* filename = argv[1];
     // ToDo-2: create a file if it doesn't exist and set its permissions to 
     // allow everybody to read and execute, but only the owner can write to it (i.e., rwxr-xr-x) 
-    // int fd = open(filename, , );
+    if (argv[2] == "rwxr-xr-x") 
+        int fd = open(filename, O_CREAT, O_RDWR);
+    else
+        int fd = open(filename, O_CREAT, O_RDONLY);
+
 
     // ToDo-2: uncomment me for error handling
-    // if (fd == -1) {
-    // 	perror("File error");
-    // 	exit(0);
-    // }
+    if (fd == -1) {
+        perror("File error");
+        exit(0);
+    }
     printf("$ ");
     while (getline(&buff, &size, stdin) > 0) {
         char output[256] = {0};
@@ -129,7 +140,7 @@ int main(int argc, char* argv[]) {
         printf("$ ");
     }
     // ToDo-2: uncomment me (don't forget to close the file)
-    // close(fd);
+    close(fd);
     return 0;
 }
 
